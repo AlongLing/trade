@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '../views/Home.vue'
+import fa from "element-ui/src/locale/lang/fa";
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,12 @@ const routes = [
       {
         path: '/dashboard',
         component: () => import('../views/Dashboard.vue'),
+        meta: {requireAuth: false}
+      },
+      {
+        //修改密码
+        path: '/pwdsetting',
+        component: () => import( '../views/PwdSetting.vue'),
         meta: {requireAuth: false}
       },
     ]
@@ -50,6 +57,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to,from,next)=>{
+  if (to.meta.requireAuth){
+    if (Boolean(sessionStorage.getItem('uid'))){
+      next()
+    }else {
+      next({
+        path:'/',
+      })
+    }
+  }else {
+    next()
+  }
 })
 
 export default router
