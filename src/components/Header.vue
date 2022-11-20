@@ -45,6 +45,8 @@
       // 侧边栏折叠
       collapseChage() {
         this.collapse = !this.collapse
+        // 向总控件发出一个 collapse 消息
+        this.$bus.emit('collapse', this.collapse)
       },
     }
   }
