@@ -33,6 +33,18 @@ const routes = [
         component: () => import( '../views/Transfer.vue'),
         meta: {requireAuth: false}
       },
+      {
+        //当日委托
+        path: '/orderquery',
+        component: () => import( '../views/OrderQuery.vue'),
+        meta: {requireAuth: false}
+      },
+      {
+        //当日成交
+        path: '/tradequery',
+        component: () => import( '../views/TradeQuery.vue'),
+        meta: {requireAuth: false}
+      },
     ]
   },
   {
