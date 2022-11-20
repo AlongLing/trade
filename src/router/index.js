@@ -27,6 +27,12 @@ const routes = [
         component: () => import( '../views/PwdSetting.vue'),
         meta: {requireAuth: false}
       },
+      {
+        //银证转账
+        path: '/transfer',
+        component: () => import( '../views/Transfer.vue'),
+        meta: {requireAuth: false}
+      },
     ]
   },
   {
