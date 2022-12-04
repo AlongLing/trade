@@ -34,6 +34,12 @@ const routes = [
         meta: {requireAuth: false}
       },
       {
+        //银证转账查询
+        path: '/transferquery',
+        component: () => import( '../views/TransferQuery.vue'),
+        meta: {requireAuth: false}
+      },
+      {
         //当日委托
         path: '/orderquery',
         component: () => import( '../views/OrderQuery.vue'),
@@ -55,6 +61,18 @@ const routes = [
         //历史成交
         path: '/histradequery',
         component: () => import( '../views/HisTradeQuery.vue'),
+        meta: {requireAuth: false}
+      },
+      {
+        //委买
+        path: '/buy',
+        component: () => import( '../views/Buy.vue'),
+        meta: {requireAuth: false}
+      },
+      {
+        //委卖
+        path: '/sell',
+        component: () => import('../views/Sell.vue'),
         meta: {requireAuth: false}
       },
     ]
