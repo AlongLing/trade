@@ -60,6 +60,9 @@
       }
     },
     created() {
+      if (Boolean(this.$route.query.msg)) {
+        this.$message.info(this.$route.query.msg + '')
+      }
       this.getCode()
     },
     methods: {
@@ -77,7 +80,8 @@
       },
 
       //登录回调函数
-      loginCallback(code, msg, acc) {
+      async loginCallback(code, msg, acc) {
+        console.log(`loginCallback code = ${code}, msg = ${msg}, acc = ${acc}`)
         if (code === 2) {
           //登录失败
           this.$message.error(msg);
@@ -114,7 +118,7 @@
             this.logining = true;
             login({
               uid: this.ruleForm.uid,
-              password: encryptMD5(this.ruleForm.password),
+              password: this.$md5(this.ruleForm.password),
               captcha: this.ruleForm.captcha,
               captchaId: this.ruleForm.captchaId,
             }, this.loginCallback);

@@ -13,6 +13,9 @@ Vue.use(ElementUI)
 import VueBus from 'vue-bus'
 Vue.use(VueBus)
 
+import md5 from 'js-md5';
+Vue.prototype.$md5 = md5
+
 Vue.config.productionTip = false
 
 new Vue({

@@ -24,6 +24,8 @@
 </template>
 
 <script>
+  import {logout} from "@/api/loginApi";
+
   export default {
     name: "Header",
     data() {
@@ -31,15 +33,19 @@
         collapse: true,
         fullscreen: false,
         message: 2,
-        username: '熊阿龙'
+      }
+    },
+    computed: {
+      username() {
+        let acc = sessionStorage.getItem("uid");
+        return acc ? acc : "guest";
       }
     },
     methods: {
       // 用户名下拉菜单选择事件
       handleCommand(command) {
         if (command === 'loginout') {
-          //TODO logout
-          // logout();
+          logout();
         }
       },
       // 侧边栏折叠

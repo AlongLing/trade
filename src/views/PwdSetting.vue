@@ -20,7 +20,8 @@
             <el-input :type="'password'" v-model="form.newpasswordcfm"/>
           </el-form-item>
           <el-form-item>
-            <el-button style="float: right" size="small" type="primary">确认修改</el-button>
+            <el-button style="float: right" size="small" type="primary"
+            @click="onSubmit">确认修改</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+  import {pwdUpdate, logout} from "@/api/loginApi";
+
   export default {
     name: "PwdSetting",
     data() {
@@ -40,6 +43,33 @@
         }
       };
     },
+    methods: {
+      logoutCallback(code, msg, data) {
+        console.log(`code = ${code}, msg = ${msg}, data = ${data}`)
+        if (code != 0) {
+          this.$message.error(msg)
+        } else {
+          logout()
+        }
+      },
+      onSubmit() {
+        if (this.form.newpassword !== this.form.newpasswordcfm) {
+          this.$message.warning("两次密码输入不一致，请重新输入")
+          return
+        }
+        if (this.form.newpassword.length < 4) {
+          this.$message.warning("密码长度太短，请重新输入")
+          return
+        }
+        console.log(`uid = ${sessionStorage.getItem("uid")}`)
+        console.log(`oldpwd = ${this.$md5(this.form.oldpassword)}`)
+        pwdUpdate({
+          uid: sessionStorage.getItem("uid"),
+          oldpwd: this.$md5(this.form.oldpassword),
+          newpwd: this.$md5(this.form.newpassword)
+        }, this.logoutCallback)
+      }
+    }
   }
 </script>
 
